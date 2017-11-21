@@ -1,0 +1,33 @@
+{% set title = "Matrix Finder" %}
+{% extends '_layouts/cp' %}
+{% set content %}
+  <form method="post">
+    {% import '_includes/forms' as forms %}
+    {% set options = [] %}
+    {% for blockType in blockTypes %}
+      {% set selected = false %}
+      {% set options = options|merge([{
+        label: blockType.name,
+        value: blockType.id
+      }]) %}
+    {% endfor %}
+
+    {{ forms.select({
+      name: 'blockType',
+      options: options,
+      value: selectedBlockTypeId ?? null
+    }) }}
+
+    <input type="hidden" name="action" value="matrixFinder/handleSubmit">
+    <input type="submit" value="Go" class="btn">
+  </form>
+  {% if entries is not null %}
+    <ul>
+      {% for entry in entries %}
+        <li><a href="{{ entry.cpEditUrl }}">{{ entry.title }}</a></li>
+      {% else %}
+        Not used
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endset %}

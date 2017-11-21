@@ -1,0 +1,14 @@
+{
+	"name": "digitalsurgeons/matrixfinder",
+	"description": "Find which entries are using a matrix block type",
+	"type": "craft-plugin",
+	"authors": [
+		{
+			"name": "Digital Surgeons",
+			"homepage": "https://www.digitalsurgeons.com"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0"
+	}
+}
