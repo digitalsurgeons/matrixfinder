@@ -54,10 +54,10 @@ $(document).ready(() => {
         }
         resp.entries.forEach((entry, index) => {
           $entries.append(`
-            <li class="${ index % 2 == 0 ? 'even' : 'odd' }">
-              <a href="${entry.editUrl}">
-                ${entry.title}
-              </a>
+            <li class="line-item ${ index % 2 == 0 ? 'even' : 'odd' }">
+              <span class="line-item__title">${entry.title}</span>
+              <a href="${entry.editUrl}" class="edit icon"></a>
+              <a href="${entry.url}" class="icon" data-icon="world"></a>
             </li>
           `)
         })

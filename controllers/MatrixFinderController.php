@@ -37,6 +37,7 @@ class MatrixFinderController extends BaseController
         $this->returnJson(['entries' => array_map(function ($entry) {
             return [
                 'title' => $entry->title,
+                'url' => $entry->url,
                 'editUrl' => $entry->getCpEditUrl()
             ];
         }, $entries)]);

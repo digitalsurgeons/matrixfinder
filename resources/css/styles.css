@@ -29,3 +29,22 @@
 .btn.menubtn {
   margin: 5px 0;
 }
+
+a.icon {
+  display: inline-block;
+
+}
+
+.line-item {
+  font-size: 14px;
+  padding: 5px;
+}
+
+.line-item a.icon {
+  margin-left: 2px;
+  transform: translateY(-2px);
+}
+
+.odd {
+  background-color: #ebedef;
+}
