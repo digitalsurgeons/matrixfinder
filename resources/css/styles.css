@@ -1,0 +1,31 @@
+[data-spinner] {
+  animation: spin 0.75s linear infinite;
+  background: transparent;
+  border-radius: 50%;
+  border-top: 2px solid #da5a47;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+[data-entries] {
+  padding: 20px 0;
+}
+
+[data-entries] li {
+  margin: 5px 0;
+}
+
+.btn.menubtn {
+  margin: 5px 0;
+}

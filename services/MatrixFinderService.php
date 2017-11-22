@@ -15,11 +15,30 @@ namespace Craft;
 
 class MatrixFinderService extends BaseApplicationComponent
 {
+    public function matrixFields()
+    {
+        return craft()->db->createCommand()
+            ->select('id, name')
+            ->from('fields')
+            ->where(['type' => 'Matrix'])
+            ->queryAll();
+    }
+
     public function blockTypes()
     {
         return craft()->db->createCommand()
             ->select('id, name')
             ->from('matrixblocktypes')
+            ->queryAll();
+    }
+
+    public function blockTypesByMatrixFieldId($matrixFieldId)
+    {
+        return craft()->db->createCommand()
+            ->select('id, name')
+            ->from('matrixblocktypes')
+            ->order('name ASC')
+            ->where(['fieldId' => $matrixFieldId])
             ->queryAll();
     }
 
@@ -37,6 +56,8 @@ class MatrixFinderService extends BaseApplicationComponent
         }, $query);
         $criteria->order = 'title ASC';
 
-        return $criteria->find();
+        $entries = $criteria->find();
+
+        return $entries;
     }
 }

@@ -102,31 +102,8 @@ class MatrixFinderPlugin extends BasePlugin
     {
         return array(
             'matrixfinder' => array('action' => 'matrixFinder/index'),
+            'matrixfinder/getEntriesFor' => array('action' => 'matrixFinder/getEntriesForBlockType'),
+            'matrixfinder/getBlockTypesByMatrix' => array('action' => 'matrixFinder/getBlockTypesForMatrixField'),
         );
-    }
-
-
-    /**
-     */
-    public function onBeforeInstall()
-    {
-    }
-
-    /**
-     */
-    public function onAfterInstall()
-    {
-    }
-
-    /**
-     */
-    public function onBeforeUninstall()
-    {
-    }
-
-    /**
-     */
-    public function onAfterUninstall()
-    {
     }
 }

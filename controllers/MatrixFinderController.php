@@ -18,21 +18,27 @@ class MatrixFinderController extends BaseController
     public function actionIndex()
     {
         $this->renderTemplate('matrixfinder/index', [
+            'matrixFields' => craft()->matrixFinder->matrixFields(),
             'blockTypes' => craft()->matrixFinder->blockTypes(),
-            'entries' => null,
-            'selectedBlockTypeId' => null
         ]);
     }
 
-    public function actionHandleSubmit()
+    public function actionGetBlockTypesForMatrixField()
     {
-        $this->requirePostRequest();
-        $blockTypeId = craft()->request->getRequiredPost('blockType');
-        $entries = craft()->matrixFinder->entriesUsingBlockType($blockTypeId);
-        $this->renderTemplate('matrixfinder/index', [
-            'blockTypes' => craft()->matrixFinder->blockTypes(),
-            'entries' => $entries,
-            'selectedBlockTypeId' => $blockTypeId
-        ]);
+        $fieldId = craft()->request->getParam('fieldId');
+        $this->returnJson(['blockTypes' => craft()->matrixFinder->blockTypesByMatrixFieldId($fieldId)]);
+    }
+
+    public function actionGetEntriesForBlockType()
+    {
+        $blockTypeId = craft()->request->getParam('blockType');
+        $fieldId = craft()->request->getParam('fieldId');
+        $entries = craft()->matrixFinder->entriesUsingBlockType($blockTypeId, $fieldId);
+        $this->returnJson(['entries' => array_map(function ($entry) {
+            return [
+                'title' => $entry->title,
+                'editUrl' => $entry->getCpEditUrl()
+            ];
+        }, $entries)]);
     }
 }
