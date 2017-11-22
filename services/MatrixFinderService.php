@@ -21,15 +21,28 @@ class MatrixFinderService extends BaseApplicationComponent
             ->select('id, name')
             ->from('fields')
             ->where(['type' => 'Matrix'])
+            ->order('name ASC')
             ->queryAll();
     }
 
-    public function blockTypes()
+    public function blockTypes($fieldId = null)
     {
         return craft()->db->createCommand()
             ->select('id, name')
+            ->where($fieldId ? ['fieldId' => $fieldId] : [])
             ->from('matrixblocktypes')
+            ->order('name ASC')
             ->queryAll();
+    }
+
+    public function blockTypeById($blockTypeId = null)
+    {
+        return craft()->db->createCommand()
+            ->select('id, name')
+            ->where($blockTypeId ? ['id' => $blockTypeId] : [])
+            ->from('matrixblocktypes')
+            ->order('name ASC')
+            ->queryRow();
     }
 
     public function blockTypesByMatrixFieldId($matrixFieldId)
@@ -58,6 +71,12 @@ class MatrixFinderService extends BaseApplicationComponent
 
         $entries = $criteria->find();
 
-        return $entries;
+        return array_map(function ($entry) {
+                return [
+                    'title' => $entry->title,
+                    'url' => $entry->url,
+                    'editUrl' => $entry->getCpEditUrl()
+                ];
+        }, $entries);
     }
 }

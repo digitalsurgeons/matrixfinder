@@ -17,9 +17,18 @@ class MatrixFinderController extends BaseController
 {
     public function actionIndex()
     {
+        $fieldId = craft()->request->getParam('field');
+        $blockTypeId = craft()->request->getParam('blockType');
+        $field = $fieldId ? craft()->fields->getFieldById($fieldId) : null;
+        $blockType = $blockTypeId ? craft()->matrixFinder->blockTypeById($blockTypeId) : null;
+        $entries = $blockType ? craft()->matrixFinder->entriesUsingBlockType($blockTypeId) : [];
+
         $this->renderTemplate('matrixfinder/index', [
+            'selectedField' => $field,
+            'selectedBlockType' => $blockType,
+            'entries' => $entries,
             'matrixFields' => craft()->matrixFinder->matrixFields(),
-            'blockTypes' => craft()->matrixFinder->blockTypes(),
+            'blockTypes' => craft()->matrixFinder->blockTypes($fieldId)
         ]);
     }
 
@@ -32,14 +41,8 @@ class MatrixFinderController extends BaseController
     public function actionGetEntriesForBlockType()
     {
         $blockTypeId = craft()->request->getParam('blockType');
-        $fieldId = craft()->request->getParam('fieldId');
-        $entries = craft()->matrixFinder->entriesUsingBlockType($blockTypeId, $fieldId);
-        $this->returnJson(['entries' => array_map(function ($entry) {
-            return [
-                'title' => $entry->title,
-                'url' => $entry->url,
-                'editUrl' => $entry->getCpEditUrl()
-            ];
-        }, $entries)]);
+        $this->returnJson([
+            'entries' => craft()->matrixFinder->entriesUsingBlockType($blockTypeId)
+        ]);
     }
 }

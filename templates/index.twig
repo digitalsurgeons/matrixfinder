@@ -5,7 +5,11 @@
 {% extends '_layouts/cp' %}
 {% set content %}
   <span class="btn menubtn" data-matrix-fields>
-    Choose a matrix field
+    {% if selectedField %}
+      {{ selectedField.name }}
+    {% else %}
+      Choose a matrix field
+    {% endif %}
   </span>
 
   <div class="menu">
@@ -21,7 +25,11 @@
   </div>
 
   <span class="btn menubtn" data-block-types>
-    Choose a block type
+    {% if selectedBlockType %}
+      {{ selectedBlockType.name }}
+    {% else %}
+      Choose a block type
+    {% endif %}
   </span>
 
   <div class="menu">
@@ -35,5 +43,13 @@
       {% endfor %}
     </ul>
   </div>
-  <ul data-entries></ul>
+  <ul data-entries>
+    {% for entry in entries %}
+      <li class="line-item {{ loop.index is even ? 'even' : 'odd' }}">
+        <span class="line-item__title">{{ entry.title }}</span>
+        <a href="{{ entry.editUrl }}" class="edit icon"></a>
+        <a href="{{ entry.url }}" class="icon" data-icon="world"></a>
+      </li>
+    {% endfor %}
+  </ul>
 {% endset %}
