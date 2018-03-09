@@ -8,6 +8,9 @@
   <div id="app">
 
     <div class="section left">
+      <h3 class="section__header">
+        Matrix Fields
+      </h3>
       <ul class="section__list">
         <li class="section__list-item" v-for="field in matrixFields" @click="getMatrixBlockTypesByField(field)">
           <% field.name %>
@@ -16,6 +19,9 @@
     </div>
 
     <div class="section middle" v-if="matrixBlockTypes.length">
+      <h3 class="section__header">
+        Matrix Block Types
+      </h3>
       <ul class="section__list">
         <li class="section__list-item" v-for="matrixBlockType in matrixBlockTypes"
           @click="getEntriesUsingMatrixBlockType(matrixBlockType)">
@@ -25,6 +31,9 @@
     </div>
 
     <div class="section right" v-if="entries.length">
+      <h3 class="section__header">
+        Entries
+      </h3>
       <ul class="section__list">
         <li class="section__list-item" v-for="entry in entries">
           <% entry.title %>
