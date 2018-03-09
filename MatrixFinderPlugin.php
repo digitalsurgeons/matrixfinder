@@ -94,16 +94,4 @@ class MatrixFinderPlugin extends BasePlugin
     {
         return true;
     }
-
-    /**
-     * @return array
-     */
-    public function registerCpRoutes()
-    {
-        return array(
-            'matrixfinder' => array('action' => 'matrixFinder/index'),
-            'matrixfinder/getEntriesFor' => array('action' => 'matrixFinder/getEntriesForBlockType'),
-            'matrixfinder/getBlockTypesByMatrix' => array('action' => 'matrixFinder/getBlockTypesForMatrixField'),
-        );
-    }
 }

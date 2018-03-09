@@ -1,4 +1,4 @@
-[data-spinner] {
+.spinner {
   animation: spin 0.75s linear infinite;
   background: transparent;
   border-radius: 50%;
@@ -18,33 +18,26 @@
   }
 }
 
-[data-entries] {
-  padding: 20px 0;
+#app {
+  display: flex;
 }
 
-[data-entries] li {
-  margin: 5px 0;
+#app * {
+  box-sizing: border-box;
 }
 
-.btn.menubtn {
-  margin: 5px 0;
+.section {
+  border: 1px solid #29323d;
+  padding: 10px;
 }
 
-a.icon {
-  display: inline-block;
-
+.section.middle,
+.section.right {
+  border-left: 0;
 }
 
-.line-item {
-  font-size: 14px;
-  padding: 5px;
+.section__list-item {
+  cursor: pointer;
+  padding: 3px 0;
 }
 
-.line-item a.icon {
-  margin-left: 2px;
-  transform: translateY(-2px);
-}
-
-.odd {
-  background-color: #ebedef;
-}

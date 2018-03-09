@@ -4,52 +4,36 @@
 
 {% extends '_layouts/cp' %}
 {% set content %}
-  <span class="btn menubtn" data-matrix-fields>
-    {% if selectedField %}
-      {{ selectedField.name }}
-    {% else %}
-      Choose a matrix field
-    {% endif %}
-  </span>
 
-  <div class="menu">
-    <ul>
-      {% for field in matrixFields %}
-        <li>
-          <a data-matrix-field data-label="{{ field.name }}" data-value="{{ field.id }}">
-            {{ field.name }}
-          </a>
+  <div id="app">
+
+    <div class="section left">
+      <ul class="section__list">
+        <li class="section__list-item" v-for="field in matrixFields" @click="getMatrixBlockTypesByField(field)">
+          <% field.name %>
         </li>
-      {% endfor %}
-    </ul>
+      </ul>
+    </div>
+
+    <div class="section middle" v-if="matrixBlockTypes.length">
+      <ul class="section__list">
+        <li class="section__list-item" v-for="matrixBlockType in matrixBlockTypes"
+          @click="getEntriesUsingMatrixBlockType(matrixBlockType)">
+          <% matrixBlockType.name %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section right" v-if="entries.length">
+      <ul class="section__list">
+        <li class="section__list-item" v-for="entry in entries">
+          <% entry.title %>
+          <a :href="entry.editUrl" class="edit icon" target="_blank"></a>
+          <a :href="entry.url" class="icon" data-icon="world" target="_blank"></a>
+      </ul>
+    </div>
+
   </div>
 
-  <span class="btn menubtn" data-block-types>
-    {% if selectedBlockType %}
-      {{ selectedBlockType.name }}
-    {% else %}
-      Choose a block type
-    {% endif %}
-  </span>
-
-  <div class="menu">
-    <ul data-block-type-list>
-      {% for blockType in blockTypes %}
-        <li>
-          <a data-block-type data-label="{{ blockType.name }}" data-value="{{ blockType.id }}">
-            {{ blockType.name }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <ul data-entries>
-    {% for entry in entries %}
-      <li class="line-item {{ loop.index is even ? 'even' : 'odd' }}">
-        <span class="line-item__title">{{ entry.title }}</span>
-        <a href="{{ entry.editUrl }}" class="edit icon"></a>
-        <a href="{{ entry.url }}" class="icon" data-icon="world"></a>
-      </li>
-    {% endfor %}
-  </ul>
+  <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
 {% endset %}

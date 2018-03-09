@@ -32,15 +32,23 @@ class MatrixFinderController extends BaseController
         ]);
     }
 
-    public function actionGetBlockTypesForMatrixField()
+    public function actionGetMatrixFields()
     {
-        $fieldId = craft()->request->getParam('fieldId');
-        $this->returnJson(['blockTypes' => craft()->matrixFinder->blockTypesByMatrixFieldId($fieldId)]);
+        $fields = craft()->matrixFinder->matrixFields();
+        $this->returnJson(['matrixFields' => $fields]);
     }
 
-    public function actionGetEntriesForBlockType()
+    public function actionGetMatrixBlockTypesByField()
     {
-        $blockTypeId = craft()->request->getParam('blockType');
+        $fieldId = craft()->request->getParam('fieldId');
+        $this->returnJson([
+            'matrixBlockTypes' => craft()->matrixFinder->blockTypesByMatrixFieldId($fieldId)
+        ]);
+    }
+
+    public function actionGetEntriesUsingMatrixBlockType()
+    {
+        $blockTypeId = craft()->request->getParam('matrixBlockTypeId');
         $this->returnJson([
             'entries' => craft()->matrixFinder->entriesUsingBlockType($blockTypeId)
         ]);

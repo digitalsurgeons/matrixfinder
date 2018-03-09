@@ -5,66 +5,52 @@ let $blockTypes = $('[data-block-type]')
 let $blockTypeList = $('[data-block-type-list]')
 let $entries = $('[data-entries]')
 
-$(document).ready(() => {
-  $matrixFields.on('click', e => {
-    let fieldId = $(e.target).data('value')
-    $matrixFieldSelect.text($(e.target).data('label'))
-    $blockTypeSelect.text('Choose a block type')
-    $.ajax({
-      url: 'matrixfinder/getBlockTypesByMatrix',
-      dataType: 'json',
-      data: {
-        fieldId: fieldId
-      },
-      success: resp => {
-        $blockTypeList.empty()
-        resp.blockTypes.forEach(blockType => {
-          let option = $(`
-            <li>
-              <a data-block-type data-label="${blockType.name}" data-value="${blockType.id}" data-field-id="${blockType.fieldId}">
-                ${blockType.name}
-              </a>
-            </li>
-          `)
-          option.on('click', handleSelectBlockType)
-          $blockTypeList.append(option)
-        })
-      }
-    })
-  })
-
-  $blockTypes.on('click', e => {
-    handleSelectBlockType(e)
-  })
-
-  function handleSelectBlockType(e) {
-    $('.menu').hide()
-    $entries.html('<span data-spinner></span>')
-    $blockTypeSelect.text($(e.target).data('label'))
-    $.ajax({
-      url: 'matrixfinder/getEntriesFor',
-      dataType: 'json',
-      data: {
-        blockType: $(e.target).data('value')
-      },
-      success: resp => {
-        $entries.empty()
-        if (!resp.entries.length) {
-          $entries.append('<li class="error">No entries</li>')
-        }
-        resp.entries.forEach((entry, index) => {
-          $entries.append(`
-            <li class="line-item ${ index % 2 == 0 ? 'even' : 'odd' }">
-              <span class="line-item__title">${entry.title}</span>
-              <a href="${entry.editUrl}" class="edit icon"></a>
-              <a href="${entry.url}" class="icon" data-icon="world"></a>
-            </li>
-          `)
-        })
-      },
-      error: error => {
-        console.log(error)
-      }
-    })
+let vue = new Vue({
+  el: '#app',
+  data: {
+    matrixFields: [],
+    matrixBlockTypes: [],
+    entries: []
+  },
+  delimiters: ['<%', '%>'], mounted: function() {
+    this.getMatrixFields()
+  },
+  methods: {
+    getMatrixFields: function() {
+      $.ajax({
+        url: '/actions/matrixFinder/getMatrixFields',
+        dataType: 'json',
+        success: this.populateMatrixFields
+      })
+    },
+    getMatrixBlockTypesByField: function(field) {
+      $.ajax({
+        url: '/actions/matrixFinder/getMatrixBlockTypesByField',
+        dataType: 'json',
+        data: {
+          fieldId: field.id
+        },
+        success: this.populateMatrixBlocks
+      })
+    },
+    getEntriesUsingMatrixBlockType: function(matrixBlockType) {
+      $.ajax({
+        url: '/actions/matrixFinder/getEntriesUsingMatrixBlockType',
+        dataType: 'json',
+        data: {
+          matrixBlockTypeId: matrixBlockType.id
+        },
+        success: this.populateEntries
+      })
+    },
+    populateMatrixFields: function(data) {
+      this.matrixFields = data.matrixFields
+    },
+    populateMatrixBlocks: function(data) {
+      this.matrixBlockTypes = data.matrixBlockTypes
+    },
+    populateEntries: function(data) {
+      this.entries = data.entries
+    }
   }
 })
