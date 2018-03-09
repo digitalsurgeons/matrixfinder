@@ -47,8 +47,37 @@
   margin: 0 5px;
 }
 
+.section__toggle {
+  color: #0d78f2;
+  cursor: pointer;
+  display: none;
+  padding: 0px 20px
+}
+
+.section__toggle:hover {
+  text-decoration: underline;
+}
+
 .section__list-item:hover {
   background: rgb(200, 200, 200);
   background: #f0f2f5;
+}
+
+@media(max-width:1110px) {
+  #app {
+    flex-direction: column;
+  }
+
+  .section__list {
+    display: none;
+  }
+
+  .section__toggle {
+    display: inline;
+  }
+
+  .section.active .section__list {
+    display: block;
+  }
 }
 
