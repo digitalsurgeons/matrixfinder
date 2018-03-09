@@ -71,12 +71,15 @@ class MatrixFinderService extends BaseApplicationComponent
 
         $entries = $criteria->find();
 
-        return array_map(function ($entry) {
+        return array_map(
+            function ($entry) {
                 return [
                     'title' => $entry->title,
                     'url' => $entry->url,
                     'editUrl' => $entry->getCpEditUrl()
                 ];
-        }, $entries);
+            },
+            $entries
+        );
     }
 }
