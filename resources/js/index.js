@@ -1,10 +1,3 @@
-let $matrixFieldSelect = $('[data-matrix-fields]')
-let $blockTypeSelect = $('[data-block-types]')
-let $matrixFields = $('[data-matrix-field]')
-let $blockTypes = $('[data-block-type]')
-let $blockTypeList = $('[data-block-type-list]')
-let $entries = $('[data-entries]')
-
 let vue = new Vue({
   el: '#app',
   data: {
