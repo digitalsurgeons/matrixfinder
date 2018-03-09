@@ -64,9 +64,12 @@ class MatrixFinderService extends BaseApplicationComponent
             ->queryAll();
 
         $criteria = craft()->elements->getCriteria(ElementType::Entry);
-        $criteria->id = array_map(function($row) {
-            return $row['ownerId'];
-        }, $query);
+        $criteria->id = array_map(
+            function($row) {
+                return $row['ownerId'];
+            },
+            $query
+        );
         $criteria->order = 'title ASC';
 
         $entries = $criteria->find();
