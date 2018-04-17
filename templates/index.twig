@@ -40,9 +40,9 @@
     </div>
 
     <div :class="{ section: true, active: isActive('entries') }"
-      v-if="entries.length">
+      v-for="(entries, section) in groupedEntries">
       <h3 class="section__header">
-        Entries
+        Section: <% section %> (<% entries.length %> entries)
       </h3>
       <span class="section__toggle" @click="toggleSection('entries')">
         <% toggleText('entries') %>
@@ -52,6 +52,7 @@
           <% entry.title %>
           <a :href="entry.editUrl" class="edit icon" target="_blank"></a>
           <a :href="entry.url" class="icon" data-icon="world" target="_blank"></a>
+        </li>
       </ul>
     </div>
 

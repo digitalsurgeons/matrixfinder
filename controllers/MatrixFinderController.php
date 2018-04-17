@@ -38,7 +38,7 @@ class MatrixFinderController extends BaseController
     {
         $blockTypeId = craft()->request->getParam('matrixBlockTypeId');
         $this->returnJson([
-            'entries' => craft()->matrixFinder->entriesUsingBlockType($blockTypeId)
+            'groupedEntries' => craft()->matrixFinder->entriesUsingBlockType($blockTypeId)
         ]);
     }
 }

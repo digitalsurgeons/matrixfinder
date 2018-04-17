@@ -3,7 +3,7 @@ let vue = new Vue({
   data: {
     matrixFields: [],
     matrixBlockTypes: [],
-    entries: [],
+    groupedEntries: [],
     activeSections: []
   },
   delimiters: ['<%', '%>'], mounted: function() {
@@ -46,7 +46,7 @@ let vue = new Vue({
       this.activeSections = ['matrixBlockTypes']
     },
     populateEntries: function(data) {
-      this.entries = data.entries
+      this.groupedEntries = data.groupedEntries
       this.activeSections = ['entries']
     },
     isActive: function(section) {
