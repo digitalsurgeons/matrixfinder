@@ -4,7 +4,9 @@ let vue = new Vue({
     matrixFields: [],
     matrixBlockTypes: [],
     groupedEntries: [],
-    activeSections: []
+    activeSections: [],
+    activeMatrixField: false,
+    activeMatrixBlockType: false,
   },
   delimiters: ['<%', '%>'], mounted: function() {
     this.getMatrixFields()
@@ -18,6 +20,7 @@ let vue = new Vue({
       })
     },
     getMatrixBlockTypesByField: function(field) {
+      this.activeMatrixField = field
       $.ajax({
         url: '/actions/matrixFinder/getMatrixBlockTypesByField',
         dataType: 'json',
@@ -28,6 +31,7 @@ let vue = new Vue({
       })
     },
     getEntriesUsingMatrixBlockType: function(matrixBlockType) {
+      this.activeMatrixBlockType = matrixBlockType
       $.ajax({
         url: '/actions/matrixFinder/getEntriesUsingMatrixBlockType',
         dataType: 'json',

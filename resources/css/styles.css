@@ -39,8 +39,12 @@
 }
 
 .section__list-item:hover {
-  background: rgb(200, 200, 200);
   background: #f0f2f5;
+}
+
+.section__list-item.active {
+  background: #29323d;
+  color: #f0f2f5;
 }
 
 @media(max-width:1110px) {

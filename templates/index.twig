@@ -5,7 +5,7 @@
 {% extends '_layouts/cp' %}
 {% set content %}
 
-  <div id="app">
+  <div id="app" v-cloak>
 
     <div :class="{ section: true, active: isActive('matrixFields') }"
       v-if="matrixFields.length">
@@ -16,8 +16,11 @@
         <% toggleText('matrixFields') %>
       </span>
       <ul class="section__list">
-        <li class="section__list-item" v-for="field in matrixFields"
-          @click="getMatrixBlockTypesByField(field)">
+        <li
+          :class="{ 'section__list-item' : true, 'active': field.id == activeMatrixField.id }"
+          v-for="field in matrixFields"
+          @click="getMatrixBlockTypesByField(field)"
+        >
           <% field.name %>
         </li>
       </ul>
@@ -32,8 +35,11 @@
         <% toggleText('matrixBlockTypes') %>
       </span>
       <ul class="section__list">
-        <li class="section__list-item" v-for="matrixBlockType in matrixBlockTypes"
-          @click="getEntriesUsingMatrixBlockType(matrixBlockType)">
+        <li
+          :class="{ 'section__list-item' : true, 'active': matrixBlockType.id == activeMatrixBlockType.id }"
+          v-for="matrixBlockType in matrixBlockTypes"
+          @click="getEntriesUsingMatrixBlockType(matrixBlockType)"
+        >
           <% matrixBlockType.name %>
         </li>
       </ul>
@@ -42,7 +48,7 @@
     <div :class="{ section: true, active: isActive('entries') }"
       v-for="(entries, section) in groupedEntries">
       <h3 class="section__header">
-        Section: <% section %> (<% entries.length %> entries)
+        Section: <% section %> (<% entries.length %> <% entries.length != 1 ? 'entries' : 'entry' %>)
       </h3>
       <span class="section__toggle" @click="toggleSection('entries')">
         <% toggleText('entries') %>
@@ -58,5 +64,5 @@
 
   </div>
 
-  <script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue@2.5.13/dist/vue.min.js"></script>
 {% endset %}
