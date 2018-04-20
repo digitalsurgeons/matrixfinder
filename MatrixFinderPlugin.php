@@ -36,7 +36,7 @@ class MatrixFinderPlugin extends BasePlugin
      */
     public function getDescription()
     {
-        return Craft::t('Find which entries are using a matrix block type');
+        return Craft::t('A Craft CMS plugin for determining which entries are using which matrix block types');
     }
 
     /**
@@ -50,17 +50,9 @@ class MatrixFinderPlugin extends BasePlugin
     /**
      * @return string
      */
-    public function getReleaseFeedUrl()
-    {
-        return 'https://raw.githubusercontent.com/digitalsurgeons/matrixfinder/master/releases.json';
-    }
-
-    /**
-     * @return string
-     */
     public function getVersion()
     {
-        return '0.0.1';
+        return '0.2.0';
     }
 
     /**
@@ -68,7 +60,7 @@ class MatrixFinderPlugin extends BasePlugin
      */
     public function getSchemaVersion()
     {
-        return '0.0.1';
+        return '0.2.0';
     }
 
     /**

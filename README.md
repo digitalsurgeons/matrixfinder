@@ -1,6 +1,6 @@
-# MatrixFinder plugin for Craft CMS
+# MatrixFinder
 
-Find which entries are using a matrix block type
+Find which entries are using which matrix block types
 
 ## Installation
 
