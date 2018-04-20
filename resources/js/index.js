@@ -14,7 +14,7 @@ let vue = new Vue({
   methods: {
     getMatrixFields: function() {
       $.ajax({
-        url: '/actions/matrixFinder/getMatrixFields',
+        url: this.getActionUrl('getMatrixFields'),
         dataType: 'json',
         success: this.populateMatrixFields
       })
@@ -22,7 +22,7 @@ let vue = new Vue({
     getMatrixBlockTypesByField: function(field) {
       this.activeMatrixField = field
       $.ajax({
-        url: '/actions/matrixFinder/getMatrixBlockTypesByField',
+        url: this.getActionUrl('getMatrixBlockTypesByField'),
         dataType: 'json',
         data: {
           fieldId: field.id
@@ -33,7 +33,7 @@ let vue = new Vue({
     getEntriesUsingMatrixBlockType: function(matrixBlockType) {
       this.activeMatrixBlockType = matrixBlockType
       $.ajax({
-        url: '/actions/matrixFinder/getEntriesUsingMatrixBlockType',
+        url: this.getActionUrl('getEntriesUsingMatrixBlockType'),
         dataType: 'json',
         data: {
           matrixBlockTypeId: matrixBlockType.id
@@ -73,6 +73,9 @@ let vue = new Vue({
     },
     toggleText: function(section) {
       return this.isActive(section) ? 'Collapse' : 'Expand'
-    }
+    },
+    getActionUrl: function(action) {
+      return Craft.actionUrl + '/matrixFinder/' + action
+    },
   }
 })
